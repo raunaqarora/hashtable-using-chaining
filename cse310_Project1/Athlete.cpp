@@ -5,16 +5,23 @@ using namespace std;
 
 Athlete::Athlete(string disciplineIn, string genderIn, string team_or_indIn, string eventIn, string venueIn, string medalIn, string athleteIn, string countryIn)
 {
-	discipline = disciplineIn;
-	gender = genderIn;
-	team_or_ind = team_or_indIn;
-	event = eventIn;
-	venue = venueIn;
-	medal = medalIn;
-	athlete = athleteIn;
-	country = countryIn;
-	key = discipline + gender + event + athlete;
-	next = nullptr;
+	try
+	{
+		discipline = disciplineIn;
+		gender = genderIn;
+		team_or_ind = team_or_indIn;
+		event = eventIn;
+		venue = venueIn;
+		medal = medalIn;
+		athlete = athleteIn;
+		country = countryIn;
+		key = discipline + gender + event + athlete;
+		next = nullptr;
+	}
+	catch (...)
+	{
+		cout << "Invalid arguments";
+	}
 }
 
 void Athlete::print()

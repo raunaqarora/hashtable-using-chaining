@@ -2,8 +2,15 @@
 
 HashTable::HashTable(int sizeIn)
 {
-	table = new LinkedList[sizeIn];
-	size = sizeIn;
+	try
+	{
+		table = new LinkedList[sizeIn];
+		size = sizeIn;
+	}
+	catch (bad_alloc e)
+	{
+		cout << "Initialization Error";
+	}
 }
 
 // Hash Function (h(k)) : Returns an integer for the position of the object to be inserted in the hash table using the string key
@@ -81,5 +88,4 @@ HashTable::~HashTable()
 	{
 		table[i].~LinkedList();
 	}
-	delete[] table;
 }

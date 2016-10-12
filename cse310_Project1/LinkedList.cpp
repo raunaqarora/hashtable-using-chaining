@@ -112,13 +112,20 @@ void LinkedList::printAll()
 // 
 LinkedList::~LinkedList()
 {
-	Athlete *current = head;
-	Athlete *next;
-	while (current != nullptr)
+	try
 	{
-		next = current->next;
-		delete(current);
-		current = next;
+		Athlete *current = head;
+		Athlete *nextAthlete = nullptr;
+		while (current != nullptr)
+		{
+			nextAthlete = current->next;
+			delete(current);
+			current = nextAthlete;
+		}
+		head = nullptr;
 	}
-	head = nullptr;
+	catch (...)
+	{
+		cout << "Error in deallocation";
+	}
 }
