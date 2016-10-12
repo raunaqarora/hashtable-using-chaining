@@ -1,9 +1,14 @@
+#define CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <iostream>
 #include <string>
 #include "HashTable.h"
 #include <vector>
 #include <sstream> 
 #include "Athlete.h"
+
 using namespace std;
 
 int main()
@@ -32,17 +37,16 @@ int main()
 			if (pos == string::npos)
 				tokens.push_back(in.substr(i, in.length()));
 		}
-		//cout << tokens.at(0) << " " << tokens.at(1) << " " << tokens.at(2) << " " << tokens.at(3) << " " << tokens.at(4) << " " << tokens.at(5) << " " << tokens.at(6) << " " << tokens.at(7);
 		Athlete* temp = new Athlete(tokens.at(0), tokens.at(1), tokens.at(2), tokens.at(3), tokens.at(4), tokens.at(5), tokens.at(6), tokens.at(7));
 		tokens.clear();
 		table.hash_insert(temp);
 		getline(std::cin, in);
 	} while (in != "InsertionEnd");
 
-	table.printHistogram();
-	cout << "first half done" << endl;
+	//table.printHistogram();
 	cin >> numberOfCommands;
 	cin.ignore();
+
 	for (int index = 0; index < numberOfCommands; index++)
 	{
 		string command;
@@ -97,4 +101,6 @@ int main()
 			}
 		}
   	}
+	table.~HashTable();
+	_CrtDumpMemoryLeaks();
 }

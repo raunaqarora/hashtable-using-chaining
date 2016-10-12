@@ -12,13 +12,13 @@ private:
 	int createKey(string key);
 
 public:
+	int numberOfItems;
 	HashTable(int sizeIn);
 	void hash_insert(Athlete *toInsert);
 	Athlete* hash_search(string key);
 	bool hash_delete(string key);
 	void hash_display();
 	void printHistogram();
-	int getNumberOfItems();
 	~HashTable();
 };
 

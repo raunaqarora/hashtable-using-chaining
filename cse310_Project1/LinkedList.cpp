@@ -14,6 +14,8 @@ int LinkedList::getLength()
 	return length;
 }
 
+
+// LinkedList :: insert : INSERT function for the linkedlist. One parameter of Athlete type. Inserts at the head of the linked list.
 void LinkedList::insert(Athlete *athletetoInsert)
 {
 	if (length == 0)
@@ -29,6 +31,7 @@ void LinkedList::insert(Athlete *athletetoInsert)
 	}
 }
 
+// LinkedList :: remove : DELETE Function for linked List. One parameter which is key. Returns true if found and deleted.
 bool LinkedList::remove(string key)
 {
 	if (length == 0)
@@ -65,6 +68,7 @@ bool LinkedList::remove(string key)
 	}
 }
 
+// LinkedList :: search : SEARCH function for LinkedList. One parameter which is key. Returns the object if found.
 Athlete* LinkedList::search(string key)
 {
 	if (length == 0)
@@ -86,29 +90,35 @@ Athlete* LinkedList::search(string key)
 	return nullptr;
 }
 
+// printAll : Prints in the required format by calling print on each object in the list.
 void LinkedList::printAll()
 {
 	Athlete *iterator = head;
-	cout << "linked list size: " << length << endl;
-	while (iterator != nullptr)
+	cout << "linked list size: " << length << endl << endl;
+	if (length == 0)
 	{
-		iterator->print();
-		iterator = iterator->next;
+		cout << "The list is empty" << endl << endl;
+	}
+	else
+	{
+		while (iterator != nullptr)
+		{
+			iterator->print();
+			iterator = iterator->next;
+		}
 	}
 }
 
+// 
 LinkedList::~LinkedList()
 {
-	Athlete *iterator = head;
-	Athlete *prev = head;
-	while (iterator != nullptr)
+	Athlete *current = head;
+	Athlete *next;
+	while (current != nullptr)
 	{
-		prev = iterator;
-		iterator = iterator->next;
-		if (iterator != nullptr)
-		{
-			delete prev;
-		}
+		next = current->next;
+		delete(current);
+		current = next;
 	}
 	head = nullptr;
 }
