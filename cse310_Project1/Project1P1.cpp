@@ -146,5 +146,5 @@ int main()
 	}
 
 	table.~HashTable();
-	_CrtDumpMemoryLeaks();
+	//_CrtDumpMemoryLeaks();
 }
