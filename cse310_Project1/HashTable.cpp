@@ -12,10 +12,8 @@ int HashTable::createKey(string key)
 	int value = 0;
 	for (int i = 0; i < key.size(); i++)
 	{
-		//value += key[i];
 		value += (key[i]*i);
 	}
-	//return (value * key.length()) % size;
 	return value % size;
 }
 
