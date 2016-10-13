@@ -1,6 +1,6 @@
-#define CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
+//#define CRTDBG_MAP_ALLOC
+//#include <stdlib.h>
+//#include <crtdbg.h>
 
 #include <iostream>
 #include <string>
@@ -40,7 +40,7 @@ int main()
 	cin.clear();
 	cin.ignore();
 	HashTable table = HashTable(size);
-	vector<string> tokens;
+	string tokens[8];
 
 	try
 	{
@@ -49,19 +49,21 @@ int main()
 		{
 			int i = 0;
 			int pos = in.find(",");
+			int index = 0;
 
 			while (pos != string::npos)
 			{
-				tokens.push_back(in.substr(i, pos - i));
+				tokens[index] = in.substr(i, pos - i);
 				i = ++pos;
 				pos = in.find(",", pos);
 
 				if (pos == string::npos)
-					tokens.push_back(in.substr(i, in.length()));
+				{
+					tokens[index+1] = in.substr(i, in.length());
+				}
+				index++;
 			}
-			Athlete* temp = new Athlete(tokens.at(0), tokens.at(1), tokens.at(2), tokens.at(3), tokens.at(4), tokens.at(5), 
-				tokens.at(6), tokens.at(7));
-			tokens.clear();
+			Athlete* temp = new Athlete(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], tokens[6], tokens[7]);
 			table.hash_insert(temp);
 			getline(std::cin, in);
 		} while (in != "InsertionEnd");
@@ -87,7 +89,7 @@ int main()
 	{
 		string command;
 		string key;
-		vector<string> parameters;
+		string parameters[4];
 		string buf;
 		getline(std::cin, command);
 		if (command.substr(0, 12) == "hash_display")
@@ -99,30 +101,32 @@ int main()
 			key = command.substr(12);
 			int i = 0;
 			int pos = key.find(",");
+			int index = 0;
 
 			try
 			{
 				while (pos != string::npos)
 				{
-					parameters.push_back(key.substr(i, pos - i));
+					parameters[index] = (key.substr(i, pos - i));
 					i = ++pos;
 					pos = key.find(",", pos);
 
 					if (pos == string::npos)
-						parameters.push_back(key.substr(i, key.length()));
+						parameters[index+1] = (key.substr(i, key.length()));
+					index++;
 				}
-				key = parameters.at(0) + parameters.at(1) + parameters.at(2) + parameters.at(3);
+				key = parameters[0] + parameters[1] + parameters[2] + parameters[3];
 
 				if (command.substr(0, 11) == "hash_delete")
 				{
 					bool isfound = table.hash_delete(key);
 					if (isfound == true)
 					{
-						cout << "The medal recipient " << parameters.at(3) << " for " << parameters.at(0) << " with event " << parameters.at(2) << " deleted" << endl;
+						cout << "The medal recipient " << parameters[3] << " for " << parameters[0] << " with event " << parameters[2] << " deleted" << endl;
 					}
 					else
 					{
-						cout << parameters.at(3) << " for " << parameters.at(0) << " with event " << parameters.at(2) << " not found" << endl;
+						cout << parameters[3] << " for " << parameters[0] << " with event " << parameters[2] << " not found" << endl;
 					}
 				}
 				else if (command.substr(0, 11) == "hash_search")
@@ -134,7 +138,7 @@ int main()
 					}
 					else
 					{
-						cout << parameters.at(3) << " for " << parameters.at(0) << " with event " << parameters.at(2) << " not found" << endl;
+						cout << parameters[3] << " for " << parameters[0] << " with event " << parameters[2] << " not found" << endl;
 					}
 				}
 			}
