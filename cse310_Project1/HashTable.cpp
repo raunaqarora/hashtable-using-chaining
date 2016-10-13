@@ -7,7 +7,7 @@ HashTable::HashTable(int sizeIn)
 		table = new LinkedList[sizeIn];
 		size = sizeIn;
 	}
-	catch (bad_alloc e)
+	catch (...)
 	{
 		cout << "Initialization Error";
 	}

@@ -5,8 +5,6 @@
 #include <iostream>
 #include <string>
 #include "HashTable.h"
-#include <vector>
-#include <sstream> 
 #include "Athlete.h"
 
 using namespace std;
@@ -35,10 +33,10 @@ int main()
 	int size;
 	int numberOfCommands;
 	string in;
-	string token;
+	string token;					//temp buffer string
 	cin >> size;
 	cin.clear();
-	cin.ignore();
+	//cin.ignore();
 	HashTable table = HashTable(size);
 	string tokens[8];
 
@@ -51,7 +49,7 @@ int main()
 			int pos = in.find(",");
 			int index = 0;
 
-			while (pos != string::npos)
+			while (pos != string::npos)						//Using "," as a delimiter and spliting the string and inserting in vector
 			{
 				tokens[index] = in.substr(i, pos - i);
 				i = ++pos;
@@ -66,7 +64,7 @@ int main()
 			Athlete* temp = new Athlete(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], tokens[6], tokens[7]);
 			table.hash_insert(temp);
 			getline(std::cin, in);
-		} while (in != "InsertionEnd");
+		} while (in != "InsertionEnd");						//read input till InsertionEnd detected;
 	}
 	catch (...)
 	{
@@ -82,16 +80,16 @@ int main()
 	}
 	catch (...)
 	{
-		cout << "Type mismatch";
+		cout << "IO error";
 	}
 
-	for (int index = 0; index < numberOfCommands; index++)
+	for (int index = 0; index < numberOfCommands; index++)						//read execute each command
 	{
 		string command;
 		string key;
 		string parameters[4];
 		string buf;
-		getline(std::cin, command);
+		getline(std::cin, command);												//read command
 		if (command.substr(0, 12) == "hash_display")
 		{
 			table.hash_display();
@@ -105,7 +103,7 @@ int main()
 
 			try
 			{
-				while (pos != string::npos)
+				while (pos != string::npos)										//Split parameters into array
 				{
 					parameters[index] = (key.substr(i, pos - i));
 					i = ++pos;
@@ -115,7 +113,8 @@ int main()
 						parameters[index+1] = (key.substr(i, key.length()));
 					index++;
 				}
-				key = parameters[0] + parameters[1] + parameters[2] + parameters[3];
+
+				key = parameters[0] + parameters[1] + parameters[2] + parameters[3];		//generate key
 
 				if (command.substr(0, 11) == "hash_delete")
 				{

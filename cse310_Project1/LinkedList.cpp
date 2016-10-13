@@ -3,7 +3,7 @@
 #include <string>
 #include "Athlete.h"
 
-LinkedList::LinkedList()
+LinkedList::LinkedList()			//Sets head to nullptr and length to 0
 {
 	head = nullptr;
 	length = 0;
